@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Skeight</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="delete">Delete</string>
+    <string name="login_failed">Oops, something went wrong. Give it another shot!</string>
+    <string name="create_room_text_chatters">Chatters</string>
+    <string name="create_room_text_create">Create</string>
+    <string name="create_room_hint_name">Group name</string>
+    <string name="create_room_error_name">The thing has no name!</string>
+    <string name="create_room_error_users">Pick some people to chat with below</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="room_edit_text_hint">Type a message...</string>
+    <string name="empty_state_rooms_title">No Rooms Yet!</string>
+    <string name="empty_state_rooms_description">Once you start chatting, you\'ll see them here</string>
+</resources>

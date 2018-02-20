@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "498707493245",
+    "firebase_url": "https://skeight-bccf6.firebaseio.com",
+    "project_id": "skeight-bccf6",
+    "storage_bucket": "skeight-bccf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498707493245:android:fd98445677586648",
+        "android_client_info": {
+          "package_name": "com.kevindom.skeight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498707493245-k3ficnohd5j5pfh9skda5iuf63cm1grc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kevindom.skeight",
+            "certificate_hash": "6bc9711aaa064765079e46bb4ae9d416f0618b08"
+          }
+        },
+        {
+          "client_id": "498707493245-vfh0ll5logdqahjjd7sov1jpdbf4fq7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Szhj7zjwuQdpzZm2V6WRNLgUn5Ozgrc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498707493245-vfh0ll5logdqahjjd7sov1jpdbf4fq7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

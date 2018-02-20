@@ -1,0 +1,97 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <group android:name="container_ball_3">
+                <path
+                    android:name="ball_3"
+                    android:pathData="M 19.5 9.5 C 18.119 9.5 17 10.619 17 12.1 C 17 13.381 18.119 14.5 19.5 14.5 C 20.881 14.5 22 13.381 22 12 C 22 10.619 20.881 9.5 19.5 9.5 Z"
+                    android:fillColor="#000000"/>
+            </group>
+            <group android:name="container_ball_1">
+                <path
+                    android:name="ball_1"
+                    android:pathData="M 4.5 9.5 C 3.119 9.5 2 10.619 2 12.1 C 2 13.381 3.119 14.5 4.5 14.5 C 5.881 14.5 7 13.381 7 12 C 7 10.619 5.881 9.5 4.5 9.5 Z"
+                    android:fillColor="#000"
+                    android:strokeWidth="1"/>
+            </group>
+            <group android:name="container_ball_2">
+                <path
+                    android:name="ball_2"
+                    android:pathData="M 12 9.5 C 10.619 9.5 9.5 10.619 9.5 12.1 C 9.5 13.381 10.619 14.5 12 14.5 C 13.381 14.5 14.5 13.381 14.5 12 C 14.5 10.619 13.381 9.5 12 9.5 Z"
+                    android:fillColor="#000000"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="container_ball_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="250"
+                    android:valueFrom="0"
+                    android:valueTo="-7"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="270"
+                    android:duration="210"
+                    android:valueFrom="-7"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="container_ball_2">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="250"
+                    android:duration="250"
+                    android:valueFrom="0"
+                    android:valueTo="-7"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="520"
+                    android:duration="210"
+                    android:valueFrom="-7"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="container_ball_3">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="500"
+                    android:duration="249"
+                    android:valueFrom="0"
+                    android:valueTo="-7"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:startOffset="749"
+                    android:duration="151"
+                    android:valueFrom="-7"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>
