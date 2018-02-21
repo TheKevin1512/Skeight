@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/spacing_medium"
                     android:text="@{message.content}"
-                    android:textSize="@dimen/text_mediumgit"
+                    android:textSize="@dimen/text_medium"
                     tools:text="The content of the message"/>
 
                 <ImageView
