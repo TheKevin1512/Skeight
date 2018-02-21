@@ -19,11 +19,9 @@ object AuthManager {
         )
     }
 
-    fun signOut(activity: FragmentActivity, completedListener: (() -> Unit)? = null) {
+    fun signOut(activity: FragmentActivity, completedListener: () -> Unit) {
         AuthUI.getInstance()
                 .signOut(activity)
-                .addOnCompleteListener {
-                    completedListener?.invoke()
-                }
+                .addOnCompleteListener { completedListener() }
     }
 }

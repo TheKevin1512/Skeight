@@ -8,10 +8,7 @@ import com.github.salomonbrys.kodein.singleton
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kevindom.skeight.App
-import com.kevindom.skeight.firebase.AnalyticsManager
-import com.kevindom.skeight.firebase.MessageManager
-import com.kevindom.skeight.firebase.RoomManager
-import com.kevindom.skeight.firebase.UserManager
+import com.kevindom.skeight.firebase.*
 import com.kevindom.skeight.storage.Preferences
 
 open class DefaultDependencyInjector {
@@ -25,21 +22,17 @@ open class DefaultDependencyInjector {
 
             bind<Preferences>() with singleton { Preferences(context = instance("appContext")) }
 
-            bind<MessageManager>() with singleton { MessageManager() }
+            bind<MessageManager>() with singleton { MessageManager(context = instance("appContext")) }
 
             bind<UserManager>() with singleton { UserManager() }
 
-            bind<RoomManager>() with singleton { RoomManager() }
+            bind<RoomManager>() with singleton { RoomManager(context = instance("appContext")) }
 
-            bind<Gson>() with singleton {
-                GsonBuilder()
-                        .setPrettyPrinting()
-                        .create()
-            }
+            bind<Gson>() with singleton { GsonBuilder().setPrettyPrinting().create() }
 
-            bind<AnalyticsManager>() with singleton {
-                AnalyticsManager(context = instance("appContext"))
-            }
+            bind<StorageManager>() with singleton { StorageManager() }
+
+            bind<AnalyticsManager>() with singleton { AnalyticsManager(context = instance("appContext")) }
         }
         return kodein
     }

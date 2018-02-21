@@ -2,17 +2,13 @@ import android.app.Activity
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.graphics.drawable.AnimatedVectorDrawable
 import android.support.annotation.DrawableRes
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.ImageView
 import com.kevindom.skeight.wrapper.observe
 
@@ -38,7 +34,13 @@ fun ImageView.startAnimation(@DrawableRes animationId: Int, loop: Boolean = fals
             }
         })
     }
+}
 
+fun AnimatedVectorDrawableCompat.loop() {
+    this.start()
+    this.registerAnimationCallback(observe {
+        onEnd { this@loop.start() }
+    })
 }
 
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {

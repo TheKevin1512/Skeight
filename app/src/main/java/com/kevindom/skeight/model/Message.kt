@@ -6,8 +6,9 @@ data class Message(
         val roomId: String,
         val userId: String,
         val name: String,
-        val content: String,
-        val timestamp: Long
+        var content: String,
+        val timestamp: Long,
+        val photoUrl: String? = null
 ) : Serializable {
     //For Firebase retrieval
     constructor() : this(
@@ -15,6 +16,7 @@ data class Message(
             "",
             "",
             "",
-            0L
+            0L,
+            null
     )
 }

@@ -1,4 +1,5 @@
 package com.kevindom.skeight.model
+
 import java.io.Serializable
 
 data class Room(

@@ -1,13 +1,17 @@
 package com.kevindom.skeight.adapter
 
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import bind
 import com.kevindom.skeight.R
-import com.kevindom.skeight.databinding.ItemMessageSelfBinding
 import com.kevindom.skeight.databinding.ItemMessageBinding
+import com.kevindom.skeight.databinding.ItemMessageSelfBinding
 import com.kevindom.skeight.model.Message
+import com.kevindom.skeight.transform.DimensionTransform
+import com.squareup.picasso.Picasso
+import loop
 
 class ChatAdapter(
         private val layoutInflater: LayoutInflater,
@@ -60,15 +64,36 @@ class ChatAdapter(
         }
 
         fun bind(message: Message, position: Int) {
-            myChatBinding?.let {
-                it.message = message
-                it.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
+            myChatBinding?.let { binding ->
+                binding.message = message
+                binding.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
+                binding.hasPicture = false
+                message.photoUrl?.let {
+                    binding.hasPicture = true
+                    val drawable = AnimatedVectorDrawableCompat.create(binding.root.context, R.drawable.anim_loading)
+                    drawable?.loop()
+                    Picasso.with(binding.root.context)
+                            .load(it)
+                            .placeholder(drawable)
+                            .transform(DimensionTransform(binding.root.context))
+                            .into(binding.chatPicture)
+                }
             }
-            otherChatBinding?.let {
-                it.message = message
-                it.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
+            otherChatBinding?.let { binding ->
+                binding.message = message
+                binding.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
+                binding.hasPicture = false
+                message.photoUrl?.let {
+                    binding.hasPicture = true
+                    val drawable = AnimatedVectorDrawableCompat.create(binding.root.context, R.drawable.anim_loading)
+                    drawable?.loop()
+                    Picasso.with(binding.root.context)
+                            .load(it)
+                            .placeholder(drawable)
+                            .transform(DimensionTransform(binding.root.context))
+                            .into(binding.chatPicture)
+                }
             }
-
         }
     }
 }

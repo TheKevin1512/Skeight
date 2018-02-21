@@ -10,7 +10,7 @@ class ChildEventListenerWrapper : ChildEventListener {
     private companion object {
         const val TAG = "ChildEventWrapper"
     }
-    
+
     private var callbackMoved: ((DataSnapshot, String?) -> Unit)? = null
     private var callbackChanged: ((DataSnapshot, String?) -> Unit)? = null
     private var callbackAdded: ((DataSnapshot, String?) -> Unit)? = null
@@ -59,7 +59,7 @@ class ChildEventListenerWrapper : ChildEventListener {
     }
 }
 
-inline fun observeChildren(wrap: ChildEventListenerWrapper.() -> Unit) : ChildEventListenerWrapper {
+inline fun observeChildren(wrap: ChildEventListenerWrapper.() -> Unit): ChildEventListenerWrapper {
     val wrapper = ChildEventListenerWrapper()
     wrapper.wrap()
     return wrapper

@@ -11,8 +11,8 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.kevindom.skeight.auth.AuthManager
 import com.kevindom.skeight.R
+import com.kevindom.skeight.auth.AuthManager
 import com.kevindom.skeight.databinding.ActivityLoginBinding
 import com.kevindom.skeight.firebase.AnalyticsManager
 import com.kevindom.skeight.firebase.UserManager
@@ -71,7 +71,7 @@ class LoginActivity : KodeinAppCompatActivity() {
                 }
             } else {
                 binding.loginLoader.visibility = View.GONE
-                Snackbar.make(binding.root, R.string.login_failed, Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT)
             }
         }
     }
@@ -96,7 +96,7 @@ class LoginActivity : KodeinAppCompatActivity() {
     private fun onFailedLogin(exception: Exception) {
         Log.e(TAG, exception.message, exception.cause)
         binding.loginLoader.visibility = View.GONE
-        Snackbar.make(binding.root, R.string.login_failed, Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT)
     }
 
     private fun onCompleteLogin(userId: String) {

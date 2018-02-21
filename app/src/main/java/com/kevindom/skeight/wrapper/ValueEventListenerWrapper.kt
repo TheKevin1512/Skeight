@@ -32,7 +32,7 @@ class ValueEventListenerWrapper : ValueEventListener {
     }
 }
 
-inline fun observeValueEvent(wrap: ValueEventListenerWrapper.() -> Unit) : ValueEventListenerWrapper {
+inline fun observeValueEvent(wrap: ValueEventListenerWrapper.() -> Unit): ValueEventListenerWrapper {
     val wrapper = ValueEventListenerWrapper()
     wrapper.wrap()
     return wrapper

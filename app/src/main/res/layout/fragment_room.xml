@@ -60,7 +60,7 @@
                             android:layout_marginBottom="@dimen/spacing_small"
                             android:layout_marginStart="@dimen/spacing_large"
                             android:textColor="@android:color/white"
-                            android:textSize="32sp"
+                            android:textSize="@dimen/text_extra_large"
                             tools:text="De nieuwe groep"/>
 
                         <android.support.v7.widget.RecyclerView
@@ -93,12 +93,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:id="@+id/room_btn_file"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingBottom="@dimen/spacing_small"
+                        android:paddingTop="@dimen/spacing_small"
+                        android:src="@drawable/ic_file"/>
+
                     <EditText
                         android:id="@+id/room_edit_message"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="5"
+                        android:layout_weight="6"
                         android:background="@drawable/bg_item_chat"
                         android:hint="@string/room_edit_text_hint"
                         android:imeOptions="actionDone"
@@ -106,7 +119,8 @@
                         android:paddingBottom="@dimen/spacing_small"
                         android:paddingEnd="@dimen/spacing_medium"
                         android:paddingStart="@dimen/spacing_medium"
-                        android:paddingTop="@dimen/spacing_small"/>
+                        android:paddingTop="@dimen/spacing_small"
+                        android:textSize="@dimen/text_medium"/>
 
                     <ImageView
                         android:id="@+id/room_btn_send"

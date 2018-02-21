@@ -10,10 +10,10 @@ import bind
 import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.instance
 import com.google.firebase.auth.FirebaseAuth
-import com.kevindom.skeight.auth.AuthManager
 import com.kevindom.skeight.R
 import com.kevindom.skeight.activity.LaunchActivity
 import com.kevindom.skeight.adapter.RoomAdapter
+import com.kevindom.skeight.auth.AuthManager
 import com.kevindom.skeight.databinding.FragmentRoomsBinding
 import com.kevindom.skeight.firebase.AnalyticsManager
 import com.kevindom.skeight.firebase.RoomManager

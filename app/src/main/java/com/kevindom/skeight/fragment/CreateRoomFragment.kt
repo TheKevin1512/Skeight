@@ -9,7 +9,6 @@ import bind
 import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.kodein
 import com.kevindom.skeight.R
 import com.kevindom.skeight.adapter.UserAdapter
 import com.kevindom.skeight.databinding.FragmentCreateRoomBinding

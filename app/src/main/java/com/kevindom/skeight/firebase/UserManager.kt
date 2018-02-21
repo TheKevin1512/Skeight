@@ -8,6 +8,7 @@ class UserManager {
 
     private companion object {
         const val USERS = "users"
+        const val FIELD_REGISTRATION_TOKENS = "registrationTokens"
     }
 
     private val database = FirebaseDatabase.getInstance().reference
@@ -18,9 +19,7 @@ class UserManager {
                 .addListenerForSingleValueEvent(observeValueEvent {
                     onDataChange {
                         val user = it.getValue(User::class.java)
-                        user?.let {
-                            completeListener(it)
-                        }
+                        user?.let { completeListener(it) }
                     }
                 })
     }
@@ -43,26 +42,18 @@ class UserManager {
                 .child(USERS)
                 .child(user.id)
                 .setValue(user)
-                .addOnCompleteListener {
-                    completeListener()
-                }
-                .addOnFailureListener {
-                    failureListener(it)
-                }
+                .addOnCompleteListener { completeListener() }
+                .addOnFailureListener { failureListener(it) }
     }
 
     fun addRegistrationToken(userId: String, registrationToken: String, completeListener: () -> Unit, failureListener: (Exception) -> Unit) {
         database
                 .child(USERS)
                 .child(userId)
-                .child("registrationTokens/" + registrationToken)
+                .child(FIELD_REGISTRATION_TOKENS + "/" + registrationToken)
                 .setValue(true)
-                .addOnCompleteListener {
-                    completeListener()
-                }
-                .addOnFailureListener {
-                    failureListener(it)
-                }
+                .addOnCompleteListener { completeListener() }
+                .addOnFailureListener { failureListener(it) }
     }
 
     fun checkIfExists(userId: String, exists: (Boolean) -> Unit) {

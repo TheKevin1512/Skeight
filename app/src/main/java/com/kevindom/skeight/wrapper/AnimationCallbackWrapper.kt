@@ -27,7 +27,7 @@ class AnimationCallbackWrapper : Animatable2Compat.AnimationCallback() {
     }
 }
 
-inline fun observe(wrap: AnimationCallbackWrapper.() -> Unit) : AnimationCallbackWrapper {
+inline fun observe(wrap: AnimationCallbackWrapper.() -> Unit): AnimationCallbackWrapper {
     val wrapper = AnimationCallbackWrapper()
     wrapper.wrap()
     return wrapper

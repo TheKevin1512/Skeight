@@ -75,7 +75,7 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/empty_state_rooms_title"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_large"
                 android:textStyle="bold"/>
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_marginEnd="@dimen/spacing_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/empty_state_rooms_description"
-                android:textSize="14sp"/>
+                android:textSize="@dimen/text_small"/>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
