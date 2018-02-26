@@ -11,7 +11,7 @@ import com.kevindom.skeight.fragment.RoomsFragment
 import com.kevindom.skeight.model.Room
 import inTransaction
 
-class MainActivity : KodeinAppCompatActivity(), RoomsFragment.OnRoomsListener, CreateRoomFragment.CreateRoomListener {
+class MainActivity : KodeinAppCompatActivity(), RoomsFragment.OnRoomsListener, PopupExitListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -38,9 +38,7 @@ class MainActivity : KodeinAppCompatActivity(), RoomsFragment.OnRoomsListener, C
         }
     }
 
-    override fun onCreateRoomExited() {
-        onBackPressed()
-    }
+    override fun onPopupExited() = onBackPressed()
 
     override fun onBackPressed() {
         val popupFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
@@ -50,4 +48,8 @@ class MainActivity : KodeinAppCompatActivity(), RoomsFragment.OnRoomsListener, C
             }
         } else super.onBackPressed()
     }
+}
+
+interface PopupExitListener {
+    fun onPopupExited()
 }

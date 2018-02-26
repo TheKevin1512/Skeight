@@ -21,6 +21,18 @@ class RoomManager(
 
     private val database = FirebaseDatabase.getInstance().reference
 
+    fun addOnUserListener(roomId: String, addListener: (String) -> Unit) {
+        database.child(ROOMS)
+                .child(roomId)
+                .child(FIELD_USER_IDS)
+                .addChildEventListener(observeChildren {
+                    onChildAdded { snapshot, s ->
+                        val userId = snapshot.key
+                        addListener(userId)
+                    }
+                })
+    }
+
     fun addOnRoomsListener(userId: String, listener: RoomListener) {
         database.child(ROOMS)
                 .orderByChild(FIELD_USER_IDS + "/" + userId)
@@ -56,6 +68,17 @@ class RoomManager(
                 .addOnCompleteListener {
                     completeListener()
                 }
+                .addOnFailureListener {
+                    Log.e(TAG, it.message ?: R.string.general_error_message.str(context), it.cause)
+                }
+    }
+
+    fun addUser(roomId: String, userId: String) {
+        database.child(ROOMS)
+                .child(roomId)
+                .child(FIELD_USER_IDS)
+                .child(userId)
+                .setValue(true)
                 .addOnFailureListener {
                     Log.e(TAG, it.message ?: R.string.general_error_message.str(context), it.cause)
                 }

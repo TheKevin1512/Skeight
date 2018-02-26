@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="positiveText"
+            type="String"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:drawableEnd="@drawable/ic_face"
+            android:gravity="center_vertical"
+            android:text="@string/container_add_text_chatters"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/add_user_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/add_user_loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <TextView
+                android:id="@+id/add_user_btn_negative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:text="@string/general_cancel"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_medium"/>
+
+            <TextView
+                android:id="@+id/add_user_btn_positive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:text="@{positiveText}"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

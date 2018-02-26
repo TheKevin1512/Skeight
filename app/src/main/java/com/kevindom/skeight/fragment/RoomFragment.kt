@@ -18,11 +18,13 @@ import com.kevindom.skeight.adapter.ChatAdapter
 import com.kevindom.skeight.adapter.ChatterAdapter
 import com.kevindom.skeight.databinding.FragmentRoomBinding
 import com.kevindom.skeight.firebase.MessageManager
+import com.kevindom.skeight.firebase.RoomManager
 import com.kevindom.skeight.firebase.StorageManager
 import com.kevindom.skeight.firebase.UserManager
 import com.kevindom.skeight.model.Message
 import com.kevindom.skeight.model.Room
 import com.kevindom.skeight.util.NamingHelper
+import inTransaction
 import loop
 import str
 
@@ -44,6 +46,7 @@ class RoomFragment : KodeinSupportFragment() {
     private val messageManager: MessageManager by lazy { appKodein().instance<MessageManager>() }
     private val storageManager: StorageManager by lazy { appKodein().instance<StorageManager>() }
     private val userManager: UserManager by lazy { appKodein().instance<UserManager>() }
+    private val roomManager: RoomManager by lazy { appKodein().instance<RoomManager>() }
 
     private lateinit var binding: FragmentRoomBinding
     private lateinit var chatterAdapter: ChatterAdapter
@@ -68,7 +71,7 @@ class RoomFragment : KodeinSupportFragment() {
         this.name = user.displayName ?: "Anonymous"
 
         setupAdapters()
-        setupListeners()
+        initUI()
         subscribeEvents()
     }
 
@@ -113,9 +116,15 @@ class RoomFragment : KodeinSupportFragment() {
         binding.roomChatRecycler.adapter = chatAdapter
     }
 
-    private fun setupListeners() {
+    private fun initUI() {
         binding.toolbarTitle.text = room.name
         binding.roomBtnBack.setOnClickListener { activity.onBackPressed() }
+        binding.roomBtnAdd.setOnClickListener {
+            fragmentManager.inTransaction {
+                setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                add(R.id.fragment_container, EditRoomFragment.create(room.id))
+            }
+        }
         binding.roomBtnFile.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
@@ -132,7 +141,7 @@ class RoomFragment : KodeinSupportFragment() {
     }
 
     private fun subscribeEvents() {
-        room.userIds.keys.forEach {
+        roomManager.addOnUserListener(room.id) {
             userManager.addOnUserListener(it) {
                 chatterAdapter.add(it.photoUrl to (NamingHelper.getFirstName(it.name) ?: it.name))
             }

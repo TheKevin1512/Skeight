@@ -57,65 +57,9 @@
                     android:visibility="@{inErrorState ? View.VISIBLE : View.GONE}"
                     tools:text="Dit is de error text"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_small"
-                    android:drawableEnd="@drawable/ic_face"
-                    android:gravity="center_vertical"
-                    android:text="@string/create_room_text_chatters"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="bold"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/create_room_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                    <ImageView
-                        android:id="@+id/create_room_loader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone"/>
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end">
-
-                    <TextView
-                        android:id="@+id/create_room_btn_cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/spacing_medium"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="4dp"
-                        android:text="@string/general_cancel"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/text_medium"/>
-
-                    <TextView
-                        android:id="@+id/create_room_btn_create"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="4dp"
-                        android:text="@string/create_room_text_create"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/text_medium"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                <include
+                    android:id="@+id/add_container"
+                    layout="@layout/layout_add_user"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </FrameLayout>

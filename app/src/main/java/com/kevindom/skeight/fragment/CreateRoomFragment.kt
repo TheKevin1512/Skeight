@@ -10,6 +10,7 @@ import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
 import com.kevindom.skeight.R
+import com.kevindom.skeight.activity.PopupExitListener
 import com.kevindom.skeight.adapter.UserAdapter
 import com.kevindom.skeight.databinding.FragmentCreateRoomBinding
 import com.kevindom.skeight.firebase.RoomManager
@@ -34,40 +35,41 @@ class CreateRoomFragment : KodeinSupportFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         this.adapter = UserAdapter(layoutInflater, appKodein().instance())
-        binding.createRoomRecycler.layoutManager = LinearLayoutManager(context)
-        binding.createRoomRecycler.adapter = adapter
+        binding.addContainer!!.addUserRecycler.layoutManager = LinearLayoutManager(context)
+        binding.addContainer!!.addUserRecycler.adapter = adapter
+        binding.addContainer!!.positiveText = R.string.create_room_text_create.str(context)
 
         setupListeners()
     }
 
     private fun setupListeners() {
         binding.createRoomContainer.setOnClickListener {
-            (activity as CreateRoomListener).onCreateRoomExited()
+            (activity as PopupExitListener).onPopupExited()
         }
-        binding.createRoomBtnCancel.setOnClickListener {
-            (activity as CreateRoomListener).onCreateRoomExited()
+        binding.addContainer!!.addUserBtnNegative.setOnClickListener {
+            (activity as PopupExitListener).onPopupExited()
         }
-        binding.createRoomBtnCreate.setOnClickListener {
+        binding.addContainer!!.addUserBtnPositive.setOnClickListener {
             if (validate()) {
                 val selectedUsers = adapter.selectedItems
                 val roomName = binding.createRoomName.text.toString()
 
-                binding.createRoomLoader.startAnimation(R.drawable.anim_loading, loop = true)
+                binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
                 roomManager.addRoom(roomName, selectedUsers) {
-                    (activity as CreateRoomListener).onCreateRoomExited()
+                    (activity as PopupExitListener).onPopupExited()
                 }
             }
         }
 
         userManager.addOnUsersListener {
-            binding.createRoomLoader.visibility = View.GONE
+            binding.addContainer!!.addUserLoader.visibility = View.GONE
             adapter.update(it)
         }
     }
 
     override fun onStart() {
         super.onStart()
-        binding.createRoomLoader.startAnimation(R.drawable.anim_loading, loop = true)
+        binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
     }
 
     private fun validate(): Boolean {
@@ -87,9 +89,5 @@ class CreateRoomFragment : KodeinSupportFragment() {
                 true
             }
         }
-    }
-
-    interface CreateRoomListener {
-        fun onCreateRoomExited()
     }
 }

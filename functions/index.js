@@ -17,6 +17,21 @@ exports.editLastMessage = functions.database.ref(`/messages/{messageId}`).onWrit
               });
 });
 
+exports.removeRoomMessages = functions.database.ref(`/rooms/{roomId}`).onDelete((event) => {
+  return admin.database()
+              .ref('/messages')
+              .orderByChild('roomId')
+              .equalTo(event.params.roomId)
+              .once('value')
+              .then((snapshot) => {
+                snapshot.ref.remove();
+                return snapshot;
+              })
+              .catch((error) => {
+                return error;
+              });
+});
+
 exports.sendMessageNotification = functions.database.ref(`/messages/{messageId}`).onWrite((event) => {
   // Only edit data when it is first created.
   if (event.data.previous.exists()) {
@@ -55,7 +70,8 @@ function sendNotification(registrationTokens, message) {
     const payload = {
       notification: {
         title: 'Skeight',
-        body: `${message.name} sent a message.`
+        body: `${message.name} sent a message.`,
+        tag: message.roomId
       }
     };
     return admin.messaging().sendToDevice(registrationTokens, payload)

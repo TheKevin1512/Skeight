@@ -6,7 +6,8 @@
     <string name="general_error_login">Oops, something went wrong. Give it another shot!</string>
     <string name="general_error_upload">Oops, could not upload image. Are you connected?</string>
     <string name="general_error_message">Something went wrong</string>
-    <string name="create_room_text_chatters">Chatters</string>
+    <string name="container_add_text_chatters">Chatters</string>
+    <string name="edit_room_text_add">Add</string>
     <string name="create_room_text_create">Create</string>
     <string name="create_room_hint_name">Group name</string>
     <string name="create_room_error_name">The thing has no name!</string>
