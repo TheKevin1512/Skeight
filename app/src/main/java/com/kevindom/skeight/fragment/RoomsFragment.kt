@@ -18,6 +18,9 @@ import com.kevindom.skeight.databinding.FragmentRoomsBinding
 import com.kevindom.skeight.firebase.AnalyticsManager
 import com.kevindom.skeight.firebase.RoomManager
 import com.kevindom.skeight.model.Room
+import com.kevindom.skeight.util.ConnectivityUtil
+import startAnimation
+import str
 
 class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, RoomManager.RoomListener {
 
@@ -38,9 +41,22 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
         binding.roomsRecycler.layoutManager = LinearLayoutManager(context)
         binding.roomsRecycler.adapter = adapter
 
-        binding.inEmptyState = true
+        binding.inErrorState = true
 
         setupListeners()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!ConnectivityUtil.isConnected(context)) {
+            binding.errorTitle = R.string.error_state_network_title.str(context)
+            binding.errorDescription = R.string.error_state_network_description.str(context)
+            binding.roomsImgError.startAnimation(R.drawable.anim_no_wifi)
+        } else if (adapter.itemCount == 0) {
+            binding.errorTitle = R.string.error_state_rooms_title.str(context)
+            binding.errorDescription = R.string.error_state_rooms_description.str(context)
+            binding.roomsImgError.startAnimation(R.drawable.anim_no_rooms)
+        }
     }
 
     private fun setupListeners() {
@@ -66,13 +82,13 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
     }
 
     override fun onRoomAdded(room: Room) {
-        binding.inEmptyState = false
+        binding.inErrorState = false
         adapter.add(room)
     }
 
     override fun onRoomRemoved(room: Room) {
         adapter.remove(room)
-        binding.inEmptyState = adapter.itemCount == 0
+        binding.inErrorState = adapter.itemCount == 0
     }
 
     override fun onRoomChanged(room: Room) {

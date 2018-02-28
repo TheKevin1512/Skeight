@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Skeight</string>
+    <string name="app_name">Hollaroo</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete">Delete</string>
@@ -15,6 +15,8 @@
     <string name="general_cancel">Cancel</string>
     <string name="room_edit_text_hint">Type a message...</string>
     <string name="room_edit_text_default">Uploaded an image</string>
-    <string name="empty_state_rooms_title">No Rooms Yet!</string>
-    <string name="empty_state_rooms_description">Once you start chatting, you\'ll see them here</string>
+    <string name="error_state_rooms_title">No Rooms Yet!</string>
+    <string name="error_state_rooms_description">Once you start chatting, you\'ll see them here</string>
+    <string name="error_state_network_title">Oh pancakes!</string>
+    <string name="error_state_network_description">Slow or no internet connection. Please check your internet settings and try again.</string>
 </resources>

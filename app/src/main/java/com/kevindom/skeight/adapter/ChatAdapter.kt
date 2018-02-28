@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import bind
 import com.kevindom.skeight.R
+import com.kevindom.skeight.activity.FullScreenActivity
 import com.kevindom.skeight.databinding.ItemMessageBinding
 import com.kevindom.skeight.databinding.ItemMessageSelfBinding
 import com.kevindom.skeight.model.Message
@@ -65,32 +66,38 @@ class ChatAdapter(
 
         fun bind(message: Message, position: Int) {
             myChatBinding?.let { binding ->
+                val context = binding.root.context
                 binding.message = message
                 binding.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
                 binding.hasPicture = false
-                message.photoUrl?.let {
+                message.photoUrl?.let { url ->
+                    binding.chatPicture.setOnClickListener { context.startActivity(FullScreenActivity.create(context, url)) }
                     binding.hasPicture = true
-                    val drawable = AnimatedVectorDrawableCompat.create(binding.root.context, R.drawable.anim_loading)
+
+                    val drawable = AnimatedVectorDrawableCompat.create(context, R.drawable.anim_loading)
                     drawable?.loop()
-                    Picasso.with(binding.root.context)
-                            .load(it)
+                    Picasso.with(context)
+                            .load(url)
                             .placeholder(drawable)
-                            .transform(DimensionTransform(binding.root.context))
+                            .transform(DimensionTransform(context))
                             .into(binding.chatPicture)
                 }
             }
             otherChatBinding?.let { binding ->
+                val context = binding.root.context
                 binding.message = message
                 binding.showName = !(position < items.size - 1 && items[position + 1].userId == message.userId)
                 binding.hasPicture = false
-                message.photoUrl?.let {
+                message.photoUrl?.let { url ->
+                    binding.chatPicture.setOnClickListener { context.startActivity(FullScreenActivity.create(context, url)) }
                     binding.hasPicture = true
-                    val drawable = AnimatedVectorDrawableCompat.create(binding.root.context, R.drawable.anim_loading)
+
+                    val drawable = AnimatedVectorDrawableCompat.create(context, R.drawable.anim_loading)
                     drawable?.loop()
-                    Picasso.with(binding.root.context)
-                            .load(it)
+                    Picasso.with(context)
+                            .load(url)
                             .placeholder(drawable)
-                            .transform(DimensionTransform(binding.root.context))
+                            .transform(DimensionTransform(context))
                             .into(binding.chatPicture)
                 }
             }

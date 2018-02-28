@@ -5,8 +5,16 @@
     <data>
 
         <variable
-            name="inEmptyState"
+            name="inErrorState"
             type="boolean"/>
+
+        <variable
+            name="errorTitle"
+            type="String"/>
+
+        <variable
+            name="errorDescription"
+            type="String"/>
 
         <import type="android.view.View"/>
     </data>
@@ -60,31 +68,31 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:visibility="@{inEmptyState ? View.VISIBLE : View.GONE}">
+            android:visibility="@{inErrorState ? View.VISIBLE : View.GONE}">
 
             <ImageView
+                android:id="@+id/rooms_img_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/spacing_medium"
-                android:src="@drawable/ic_empty_state_rooms"/>
+                android:layout_margin="@dimen/spacing_medium"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:gravity="center_horizontal"
-                android:text="@string/empty_state_rooms_title"
+                android:text="@{errorTitle}"
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_medium"
                 android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_marginStart="@dimen/spacing_medium"
                 android:gravity="center_horizontal"
-                android:text="@string/empty_state_rooms_description"
+                android:text="@{errorDescription}"
                 android:textSize="@dimen/text_small"/>
         </LinearLayout>
 
