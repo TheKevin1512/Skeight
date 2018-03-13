@@ -30,6 +30,7 @@ import com.kevindom.skeight.firebase.MessageManager
 import com.kevindom.skeight.firebase.RoomManager
 import com.kevindom.skeight.firebase.StorageManager
 import com.kevindom.skeight.firebase.UserManager
+import com.kevindom.skeight.model.Chatter
 import com.kevindom.skeight.model.Message
 import com.kevindom.skeight.model.Room
 import com.kevindom.skeight.util.NamingHelper
@@ -131,12 +132,11 @@ class RoomFragment : KodeinSupportFragment() {
         }
         binding.roomBtnPhoto.setOnClickListener {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), RC_PERMISSION)
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), RC_PERMISSION)
             } else takePhoto()
         }
-
         binding.roomBtnFile.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            //            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
             }
@@ -152,11 +152,11 @@ class RoomFragment : KodeinSupportFragment() {
     }
 
     private fun subscribeEvents() {
-        roomManager.addOnUserListener(room.id) {
+        roomManager.addOnUserListener(room.id, addListener = {
             userManager.addOnUserListener(it) {
-                chatterAdapter.add(it.photoUrl to (NamingHelper.getFirstName(it.name) ?: it.name))
+                chatterAdapter.add(Chatter(it.id, (NamingHelper.getFirstName(it.name) ?: it.name), it.photoUrl))
             }
-        }
+        }, removeListener = { chatterAdapter.remove(it) })
         messageManager.addOnMessageListener(room.id) {
             chatAdapter.update(it)
             binding.roomChatRecycler.scrollToPosition(0)

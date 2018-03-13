@@ -37,13 +37,15 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = RoomAdapter(layoutInflater, this)
+        val user = FirebaseAuth.getInstance().currentUser ?: throw IllegalStateException("User cannot be null at this point")
+
+        adapter = RoomAdapter(layoutInflater, roomManager, user.uid, this)
         binding.roomsRecycler.layoutManager = LinearLayoutManager(context)
         binding.roomsRecycler.adapter = adapter
 
         binding.inErrorState = true
 
-        setupListeners()
+        setupListeners(user.uid)
     }
 
     override fun onStart() {
@@ -59,9 +61,8 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
         }
     }
 
-    private fun setupListeners() {
-        val user = FirebaseAuth.getInstance().currentUser ?: throw IllegalStateException("UserID cannot be null at this point")
-        roomManager.addOnRoomsListener(user.uid, this)
+    private fun setupListeners(userId: String) {
+        roomManager.addOnRoomsListener(userId, this)
         binding.roomsFab.setOnClickListener {
             (activity as OnRoomsListener).onCreateRoomClicked()
         }
@@ -89,6 +90,7 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
     override fun onRoomRemoved(room: Room) {
         adapter.remove(room)
         binding.inErrorState = adapter.itemCount == 0
+        binding.roomsImgError.startAnimation(R.drawable.anim_no_rooms)
     }
 
     override fun onRoomChanged(room: Room) {

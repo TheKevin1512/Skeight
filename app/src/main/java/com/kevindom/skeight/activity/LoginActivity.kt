@@ -41,9 +41,9 @@ class LoginActivity : KodeinAppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        binding.btnSignIn.setOnClickListener {
-            AuthManager.signIn(this, RC_SIGN_IN)
-        }
+        binding.loginBackground.startAnimation(R.drawable.anim_login)
+        binding.btnSignIn.startAnimation(R.drawable.anim_google)
+        binding.btnSignIn.setOnClickListener { AuthManager.signIn(this, RC_SIGN_IN) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

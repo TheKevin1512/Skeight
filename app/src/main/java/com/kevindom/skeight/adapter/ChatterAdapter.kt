@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import bind
 import com.kevindom.skeight.R
 import com.kevindom.skeight.databinding.ItemChatterBinding
+import com.kevindom.skeight.model.Chatter
 import com.kevindom.skeight.transform.RoundedCornersTransform
 import com.squareup.picasso.Picasso
 
@@ -13,12 +14,20 @@ class ChatterAdapter(
         private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ChatterAdapter.ViewHolder>() {
 
-    //first: PhotoUrl, second: Name
-    private val items: MutableList<Pair<String?, String>> = mutableListOf()
+    private val items: MutableList<Chatter> = mutableListOf()
 
-    fun add(item: Pair<String?, String>) {
+    fun add(item: Chatter) {
         items.add(item)
         notifyItemInserted(itemCount - 1)
+    }
+
+    fun remove(userId: String) {
+        val toRemove = items.find { it.userId == userId }
+        val index = items.indexOf(toRemove)
+        if (index > 0) {
+            items.removeAt(index)
+            notifyItemRemoved(index)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder = ViewHolder(R.layout.item_chatter.bind(layoutInflater, parent))
@@ -31,15 +40,15 @@ class ChatterAdapter(
             private val binding: ItemChatterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Pair<String?, String>) {
+        fun bind(item: Chatter) {
             //Photo URL
-            item.first?.let {
+            item.photoUrl?.let {
                 Picasso.with(binding.root.context)
-                        .load(item.first)
+                        .load(it)
                         .transform(RoundedCornersTransform())
                         .into(binding.chatterPicture)
             }
-            binding.chatterName.text = item.second
+            binding.chatterName.text = item.name
         }
     }
 }

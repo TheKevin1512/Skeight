@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,10 +7,11 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/login_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_login"/>
+            android:src="@drawable/ic_bg_login"/>
 
         <ImageView
             android:id="@+id/login_loader"
@@ -18,13 +19,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
-        <com.google.android.gms.common.SignInButton
+        <ImageView
             android:id="@+id/btn_sign_in"
+            android:contentDescription="@string/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_margin="@dimen/spacing_large"
-            android:layout_gravity="bottom|center_horizontal"
-            app:buttonSize="wide"
-            app:colorScheme="dark"/>
+            android:layout_gravity="bottom|center_horizontal"/>
     </FrameLayout>
 </layout>

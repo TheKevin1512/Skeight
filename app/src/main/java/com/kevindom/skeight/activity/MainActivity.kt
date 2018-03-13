@@ -43,9 +43,7 @@ class MainActivity : KodeinAppCompatActivity(), RoomsFragment.OnRoomsListener, P
     override fun onBackPressed() {
         val popupFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (popupFragment != null && popupFragment !is RoomsFragment) {
-            supportFragmentManager.inTransaction {
-                remove(popupFragment)
-            }
+            supportFragmentManager.inTransaction { remove(popupFragment) }
         } else super.onBackPressed()
     }
 }

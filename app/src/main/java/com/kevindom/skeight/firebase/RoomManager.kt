@@ -21,7 +21,7 @@ class RoomManager(
 
     private val database = FirebaseDatabase.getInstance().reference
 
-    fun addOnUserListener(roomId: String, addListener: (String) -> Unit) {
+    fun addOnUserListener(roomId: String, addListener: (String) -> Unit, removeListener: (String) -> Unit) {
         database.child(ROOMS)
                 .child(roomId)
                 .child(FIELD_USER_IDS)
@@ -30,12 +30,16 @@ class RoomManager(
                         val userId = snapshot.key
                         addListener(userId)
                     }
+                    onChildRemoved {
+                        val userId = it.key
+                        removeListener(userId)
+                    }
                 })
     }
 
     fun addOnRoomsListener(userId: String, listener: RoomListener) {
         database.child(ROOMS)
-                .orderByChild(FIELD_USER_IDS + "/" + userId)
+                .orderByChild("$FIELD_USER_IDS/$userId")
                 .equalTo(true)
                 .addChildEventListener(observeChildren {
                     onChildAdded { snapshot, _ ->
@@ -82,6 +86,14 @@ class RoomManager(
                 .addOnFailureListener {
                     Log.e(TAG, it.message ?: R.string.general_error_message.str(context), it.cause)
                 }
+    }
+
+    fun removeUser(roomId: String, userId: String) {
+        database.child(ROOMS)
+                .child(roomId)
+                .child(FIELD_USER_IDS)
+                .child(userId)
+                .removeValue()
     }
 
     interface RoomListener {

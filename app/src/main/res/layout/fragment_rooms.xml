@@ -50,6 +50,7 @@
 
                     <ImageView
                         android:id="@+id/btn_sign_out"
+                        android:contentDescription="@string/sign_out"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
@@ -66,6 +67,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_extra_large"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:visibility="@{inErrorState ? View.VISIBLE : View.GONE}">
@@ -100,6 +102,7 @@
             android:id="@+id/rooms_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="FAB Create"
             android:layout_margin="@dimen/spacing_large"
             android:src="@drawable/ic_message"
             app:fabSize="normal"
