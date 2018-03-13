@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar
 import android.util.Log
 import android.view.View
 import bind
-import com.crashlytics.android.Crashlytics
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance

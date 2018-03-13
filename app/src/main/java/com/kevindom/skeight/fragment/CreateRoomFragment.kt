@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import bind
+import closeKeyBoard
 import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
@@ -44,9 +45,11 @@ class CreateRoomFragment : KodeinSupportFragment() {
 
     private fun setupListeners() {
         binding.createRoomContainer.setOnClickListener {
+            binding.createRoomName.closeKeyBoard()
             (activity as PopupExitListener).onPopupExited()
         }
         binding.addContainer!!.addUserBtnNegative.setOnClickListener {
+            binding.createRoomName.closeKeyBoard()
             (activity as PopupExitListener).onPopupExited()
         }
         binding.addContainer!!.addUserBtnPositive.setOnClickListener {

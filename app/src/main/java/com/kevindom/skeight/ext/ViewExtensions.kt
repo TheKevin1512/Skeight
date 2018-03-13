@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.kevindom.skeight.wrapper.observe
 
@@ -17,6 +18,11 @@ fun <T : ViewDataBinding> Int.bind(activity: Activity): T = DataBindingUtil.setC
 fun <T : ViewDataBinding> Int.bind(layoutInflater: LayoutInflater, parent: ViewGroup?): T = DataBindingUtil.inflate(layoutInflater, this, parent, false)
 
 fun Int.str(context: Context): String = context.getString(this)
+
+fun View.closeKeyBoard() {
+    val inputMethodManager = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
+}
 
 fun ImageView.startAnimation(@DrawableRes animationId: Int, loop: Boolean = false, reset: Boolean = false) {
     visibility = View.VISIBLE
