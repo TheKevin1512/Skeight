@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_bg_toolbar"/>
+                    android:src="@drawable/bg_toolbar"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"

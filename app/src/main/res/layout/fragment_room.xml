@@ -21,7 +21,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_bg_toolbar">
+                    android:background="@drawable/bg_toolbar">
 
                     <ImageView
                         android:id="@+id/room_btn_back"

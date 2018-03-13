@@ -36,6 +36,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <EditText
@@ -51,7 +52,6 @@
                     android:id="@+id/create_room_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Error message"
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:text="@{errorMessage}"
                     android:textColor="@color/colorError"

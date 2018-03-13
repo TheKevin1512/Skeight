@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.util.Log
 import android.view.View
 import bind
+import com.crashlytics.android.Crashlytics
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
@@ -43,7 +44,9 @@ class LoginActivity : KodeinAppCompatActivity() {
         super.onStart()
         binding.loginBackground.startAnimation(R.drawable.anim_login)
         binding.btnSignIn.startAnimation(R.drawable.anim_google)
-        binding.btnSignIn.setOnClickListener { AuthManager.signIn(this, RC_SIGN_IN) }
+        binding.btnSignIn.setOnClickListener {
+            AuthManager.signIn(this, RC_SIGN_IN)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
