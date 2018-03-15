@@ -15,11 +15,18 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".activity.LoginActivity"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.FullScreenActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent"/>
+
         <activity
             android:name=".activity.LaunchActivity"
             android:configChanges="orientation"

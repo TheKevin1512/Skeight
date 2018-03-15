@@ -73,7 +73,7 @@ class LoginActivity : KodeinAppCompatActivity() {
                 }
             } else {
                 binding.loginLoader.visibility = View.GONE
-                Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -98,7 +98,7 @@ class LoginActivity : KodeinAppCompatActivity() {
     private fun onFailedLogin(exception: Exception) {
         Log.e(TAG, exception.message, exception.cause)
         binding.loginLoader.visibility = View.GONE
-        Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.root, R.string.general_error_login, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun onCompleteLogin(userId: String) {

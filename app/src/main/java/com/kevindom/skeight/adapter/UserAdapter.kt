@@ -1,10 +1,11 @@
 package com.kevindom.skeight.adapter
 
-import android.support.v7.widget.RecyclerView
+import android.databinding.ObservableBoolean
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import bind
 import com.kevindom.skeight.R
+import com.kevindom.skeight.adapter.viewholder.BaseViewHolder
 import com.kevindom.skeight.databinding.ItemUserBinding
 import com.kevindom.skeight.firebase.AnalyticsManager
 import com.kevindom.skeight.model.User
@@ -15,39 +16,28 @@ import startAnimation
 class UserAdapter(
         private val layoutInflater: LayoutInflater,
         private val analyticsManager: AnalyticsManager
-) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+) : BaseAdapter<Pair<User, ObservableBoolean>, UserAdapter.ViewHolder>() {
 
-    private val items: MutableList<User> = mutableListOf()
-    val selectedItems: MutableMap<String, Boolean> = mutableMapOf()
-
-    fun update(items: List<User>) {
-        this.items.removeAll(this.items)
-        this.items.addAll(items)
-        notifyDataSetChanged()
-    }
+    val selectedUsers get() = items.filter { it.second.get() }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder = ViewHolder(R.layout.item_user.bind(layoutInflater, parent))
 
-    override fun getItemCount(): Int = items.size
+    inner class ViewHolder(private val binding: ItemUserBinding) : BaseViewHolder<Pair<User, ObservableBoolean>>(binding.root) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
-
-    inner class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        override fun bind(item: Pair<User, ObservableBoolean>, position: Int) {
             binding.root.setOnClickListener {
-                if (selectedItems.containsKey(user.id)) {
-                    selectedItems.remove(user.id)
+                val selected = item.second.get()
+                if (selected) {
                     binding.userAdded.startAnimation(R.drawable.anim_uncheck, reset = true)
-                    analyticsManager.logSelectItem(user, false)
                 } else {
-                    selectedItems[user.id] = true
                     binding.userAdded.startAnimation(R.drawable.anim_check)
-                    analyticsManager.logSelectItem(user, true)
                 }
+                item.second.set(!selected)
+                analyticsManager.logSelectItem(item.first, selected)
             }
-            binding.user = user
+            binding.user = item.first
             binding.executePendingBindings()
-            user.photoUrl?.let {
+            item.first.photoUrl?.let {
                 Picasso.with(binding.root.context)
                         .load(it)
                         .transform(RoundedCornersTransform())

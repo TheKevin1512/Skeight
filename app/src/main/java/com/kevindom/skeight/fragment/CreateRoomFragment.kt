@@ -1,5 +1,6 @@
 package com.kevindom.skeight.fragment
 
+import android.databinding.ObservableBoolean
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -54,11 +55,12 @@ class CreateRoomFragment : KodeinSupportFragment() {
         }
         binding.addContainer!!.addUserBtnPositive.setOnClickListener {
             if (validate()) {
-                val selectedUsers = adapter.selectedItems
+                val selectedUsers = adapter.selectedUsers
                 val roomName = binding.createRoomName.text.toString()
 
                 binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
-                roomManager.addRoom(roomName, selectedUsers) {
+                roomManager.addRoom(roomName, selectedUsers.associate { it.first.id to it.second.get() }) {
+                    binding.createRoomName.closeKeyBoard()
                     (activity as PopupExitListener).onPopupExited()
                 }
             }
@@ -66,7 +68,7 @@ class CreateRoomFragment : KodeinSupportFragment() {
 
         userManager.addOnUsersListener {
             binding.addContainer!!.addUserLoader.visibility = View.GONE
-            adapter.update(it)
+            adapter.updateAll(it.map { it to ObservableBoolean(false) })
         }
     }
 
@@ -82,7 +84,7 @@ class CreateRoomFragment : KodeinSupportFragment() {
                 binding.errorMessage = R.string.create_room_error_name.str(context)
                 false
             }
-            adapter.selectedItems.isEmpty() -> {
+            adapter.selectedUsers.isEmpty() -> {
                 binding.inErrorState = true
                 binding.errorMessage = R.string.create_room_error_users.str(context)
                 false

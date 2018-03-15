@@ -1,5 +1,6 @@
 package com.kevindom.skeight.fragment
 
+import android.databinding.ObservableBoolean
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -55,21 +56,15 @@ class EditRoomFragment : KodeinSupportFragment() {
         binding.addContainer!!.addUserRecycler.adapter = adapter
         binding.addContainer!!.positiveText = R.string.edit_room_text_add.str(context)
         binding.addContainer!!.addUserBtnPositive.setOnClickListener {
-            adapter.selectedItems.forEach {
-                roomManager.addUser(roomId, it.key)
-            }
+            adapter.selectedUsers.forEach { roomManager.addUser(roomId, it.first.id) }
             (activity as PopupExitListener).onPopupExited()
         }
-        binding.addContainer!!.addUserBtnNegative.setOnClickListener {
-            (activity as PopupExitListener).onPopupExited()
-        }
-        binding.editRoomContainer.setOnClickListener {
-            (activity as PopupExitListener).onPopupExited()
-        }
+        binding.addContainer!!.addUserBtnNegative.setOnClickListener { (activity as PopupExitListener).onPopupExited() }
+        binding.editRoomContainer.setOnClickListener { (activity as PopupExitListener).onPopupExited() }
 
         userManager.addOnUsersListener {
             binding.addContainer!!.addUserLoader.visibility = View.GONE
-            adapter.update(it)
+            adapter.updateAll(it.map { it to ObservableBoolean(false) })
         }
     }
 

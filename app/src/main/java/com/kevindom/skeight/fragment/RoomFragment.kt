@@ -10,7 +10,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.widget.LinearLayoutManager
@@ -136,7 +135,6 @@ class RoomFragment : KodeinSupportFragment() {
             } else takePhoto()
         }
         binding.roomBtnFile.setOnClickListener {
-            //            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
             }
@@ -158,7 +156,7 @@ class RoomFragment : KodeinSupportFragment() {
             }
         }, removeListener = { chatterAdapter.remove(it) })
         messageManager.addOnMessageListener(room.id) {
-            chatAdapter.update(it)
+            chatAdapter.add(it, first = true)
             binding.roomChatRecycler.scrollToPosition(0)
         }
     }
@@ -193,7 +191,7 @@ class RoomFragment : KodeinSupportFragment() {
             binding.roomBtnFile.setImageDrawable(context.getDrawable(R.drawable.ic_file))
             drawable?.clearAnimationCallbacks()
         }, failureListener = {
-            Snackbar.make(binding.root, R.string.general_error_upload, Snackbar.LENGTH_SHORT)
+            Snackbar.make(binding.root, R.string.general_error_upload, Snackbar.LENGTH_SHORT).show()
             binding.roomBtnFile.setImageDrawable(context.getDrawable(R.drawable.ic_file))
             drawable?.clearAnimationCallbacks()
         })

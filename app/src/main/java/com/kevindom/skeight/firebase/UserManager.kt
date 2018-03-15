@@ -50,7 +50,7 @@ class UserManager {
         database
                 .child(USERS)
                 .child(userId)
-                .child(FIELD_REGISTRATION_TOKENS + "/" + registrationToken)
+                .child("$FIELD_REGISTRATION_TOKENS/$registrationToken")
                 .setValue(true)
                 .addOnCompleteListener { completeListener() }
                 .addOnFailureListener { failureListener(it) }
