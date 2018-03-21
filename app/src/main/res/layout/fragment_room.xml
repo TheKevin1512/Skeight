@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="6"
-                        android:background="@drawable/bg_item_chat"
+                        android:background="@drawable/bg_item_message_self"
                         android:hint="@string/room_edit_text_hint"
                         android:imeOptions="actionDone"
                         android:inputType="textShortMessage"

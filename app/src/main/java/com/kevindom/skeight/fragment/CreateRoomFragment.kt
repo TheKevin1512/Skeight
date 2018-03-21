@@ -11,12 +11,14 @@ import closeKeyBoard
 import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
+import com.google.firebase.auth.FirebaseAuth
 import com.kevindom.skeight.R
 import com.kevindom.skeight.activity.PopupExitListener
 import com.kevindom.skeight.adapter.UserAdapter
 import com.kevindom.skeight.databinding.FragmentCreateRoomBinding
 import com.kevindom.skeight.firebase.RoomManager
 import com.kevindom.skeight.firebase.UserManager
+import com.kevindom.skeight.model.User
 import startAnimation
 import str
 
@@ -55,11 +57,15 @@ class CreateRoomFragment : KodeinSupportFragment() {
         }
         binding.addContainer!!.addUserBtnPositive.setOnClickListener {
             if (validate()) {
-                val selectedUsers = adapter.selectedUsers
+                val selectedUsers = mutableMapOf<String, Boolean>()
+                val myUserId = FirebaseAuth.getInstance().currentUser?.uid ?: throw IllegalStateException("User ID cannot be null at this point")
                 val roomName = binding.createRoomName.text.toString()
 
+                selectedUsers[myUserId] = true
+                selectedUsers.putAll(adapter.selectedUsers.associate { it.first.id to it.second.get() })
+
                 binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
-                roomManager.addRoom(roomName, selectedUsers.associate { it.first.id to it.second.get() }) {
+                roomManager.addRoom(roomName, selectedUsers) {
                     binding.createRoomName.closeKeyBoard()
                     (activity as PopupExitListener).onPopupExited()
                 }
@@ -68,8 +74,14 @@ class CreateRoomFragment : KodeinSupportFragment() {
 
         binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
         userManager.addOnUsersListener {
+            val myUserId = FirebaseAuth.getInstance().currentUser?.uid ?: throw IllegalStateException("User ID cannot be null at this point")
+
             binding.addContainer!!.addUserLoader.visibility = View.GONE
-            adapter.updateAll(it.map { it to ObservableBoolean(false) })
+            adapter.updateAll(it.mapNotNull {
+                if (it.id != myUserId)
+                it to ObservableBoolean(false)
+                else null
+            })
         }
     }
 

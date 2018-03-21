@@ -10,6 +10,7 @@ import bind
 import com.github.salomonbrys.kodein.android.KodeinSupportFragment
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
+import com.google.firebase.auth.FirebaseAuth
 import com.kevindom.skeight.R
 import com.kevindom.skeight.activity.PopupExitListener
 import com.kevindom.skeight.adapter.UserAdapter
@@ -26,10 +27,12 @@ class EditRoomFragment : KodeinSupportFragment() {
 
     companion object {
         private const val EXTRA_ROOM_ID = "extra_room_id"
+        private const val EXTRA_USERS = "extra_users"
 
-        fun create(roomId: String): EditRoomFragment {
+        fun create(roomId: String, userIds: Set<String>): EditRoomFragment {
             return EditRoomFragment().apply {
                 arguments = Bundle().apply {
+                    putStringArrayList(EXTRA_USERS, ArrayList(userIds))
                     putString(EXTRA_ROOM_ID, roomId)
                 }
             }
@@ -50,6 +53,7 @@ class EditRoomFragment : KodeinSupportFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val roomId = arguments.getString(EXTRA_ROOM_ID)
+        val userIds = arguments.getStringArrayList(EXTRA_USERS)
 
         this.adapter = UserAdapter(layoutInflater, appKodein().instance())
         binding.addContainer!!.addUserRecycler.layoutManager = LinearLayoutManager(context)
@@ -63,8 +67,14 @@ class EditRoomFragment : KodeinSupportFragment() {
         binding.editRoomContainer.setOnClickListener { (activity as PopupExitListener).onPopupExited() }
 
         userManager.addOnUsersListener {
+            val myUserId = FirebaseAuth.getInstance().currentUser?.uid ?: throw IllegalStateException("User ID cannot be null at this point")
+
             binding.addContainer!!.addUserLoader.visibility = View.GONE
-            adapter.updateAll(it.map { it to ObservableBoolean(false) })
+            adapter.updateAll(it.mapNotNull {
+                if (it.id != myUserId && !userIds.contains(it.id))
+                    it to ObservableBoolean(false)
+                else null
+            })
         }
     }
 

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_extra_small"
             android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/spacing_small"
             app:contentPadding="@dimen/spacing_medium">
 
             <RelativeLayout

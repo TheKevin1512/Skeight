@@ -46,7 +46,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_item_chat"
+                android:background="@drawable/bg_item_message"
                 android:orientation="vertical">
 
                 <TextView

@@ -71,8 +71,6 @@ class ChatAdapter(
 
     inner class InfoMessageHolder(private val binding: ItemMessageInfoBinding) : BaseViewHolder<Message>(binding.root) {
 
-        override fun bind(item: Message) {
-            binding.message = item.content
-        }
+        override fun bind(item: Message) { binding.message = item.content }
     }
 }

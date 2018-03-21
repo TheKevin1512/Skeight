@@ -35,6 +35,7 @@ import com.kevindom.skeight.model.Room
 import com.kevindom.skeight.util.NamingHelper
 import inTransaction
 import loop
+import onDoneClicked
 import str
 import java.io.File
 
@@ -126,7 +127,7 @@ class RoomFragment : KodeinSupportFragment() {
         binding.roomBtnAdd.setOnClickListener {
             fragmentManager.inTransaction {
                 setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                add(R.id.fragment_container, EditRoomFragment.create(room.id))
+                add(R.id.fragment_container, EditRoomFragment.create(room.id, room.userIds.keys))
             }
         }
         binding.roomBtnPhoto.setOnClickListener {
@@ -147,6 +148,7 @@ class RoomFragment : KodeinSupportFragment() {
                 binding.roomEditMessage.text.clear()
             }
         }
+        binding.roomEditMessage.onDoneClicked { binding.roomBtnSend.performClick() }
     }
 
     private fun subscribeEvents() {

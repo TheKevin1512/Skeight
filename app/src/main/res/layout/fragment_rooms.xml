@@ -50,7 +50,6 @@
 
                     <ImageView
                         android:id="@+id/btn_sign_out"
-                        android:contentDescription="@string/sign_out"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"

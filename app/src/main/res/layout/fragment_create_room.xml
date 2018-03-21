@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:text="@{errorMessage}"
-                    android:textColor="@color/colorError"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_extra_small"
                     android:visibility="@{inErrorState ? View.VISIBLE : View.GONE}"
                     tools:text="Dit is de error text"/>
