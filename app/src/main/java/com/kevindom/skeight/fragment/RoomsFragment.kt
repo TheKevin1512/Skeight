@@ -22,7 +22,7 @@ import com.kevindom.skeight.util.ConnectivityUtil
 import startAnimation
 import str
 
-class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, RoomManager.RoomListener {
+class RoomsFragment : KodeinSupportFragment(), RoomManager.RoomListener {
 
     private val roomManager: RoomManager by instance()
     private val analyticsManager: AnalyticsManager by instance()
@@ -39,7 +39,10 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
         super.onViewCreated(view, savedInstanceState)
         val user = FirebaseAuth.getInstance().currentUser ?: throw IllegalStateException("User cannot be null at this point")
 
-        adapter = RoomAdapter(layoutInflater, roomManager, user.uid, this)
+        adapter = RoomAdapter(layoutInflater, roomManager, user.uid) {
+            analyticsManager.logSelectItem(it)
+            (activity as OnRoomsListener).onRoomClicked(it)
+        }
         binding.roomsRecycler.layoutManager = LinearLayoutManager(context)
         binding.roomsRecycler.adapter = adapter
 
@@ -75,11 +78,6 @@ class RoomsFragment : KodeinSupportFragment(), RoomAdapter.OnClickListener, Room
                 startActivity(intent)
             }
         }
-    }
-
-    override fun onRoomClicked(room: Room) {
-        analyticsManager.logSelectItem(room)
-        (activity as OnRoomsListener).onRoomClicked(room)
     }
 
     override fun onRoomAdded(room: Room) {

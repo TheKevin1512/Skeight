@@ -3,6 +3,7 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete">Delete</string>
+    <string name="search">Search by email</string>
     <string name="general_error_login">Oops, something went wrong. Give it another shot!</string>
     <string name="general_error_upload">Oops, could not upload image. Are you connected?</string>
     <string name="general_error_message">Something went wrong</string>

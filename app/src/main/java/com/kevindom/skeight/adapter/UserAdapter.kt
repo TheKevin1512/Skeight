@@ -24,7 +24,7 @@ class UserAdapter(
 
     inner class ViewHolder(private val binding: ItemUserBinding) : BaseViewHolder<Pair<User, ObservableBoolean>>(binding.root) {
 
-        override fun bind(item: Pair<User, ObservableBoolean>, position: Int) {
+        override fun bind(item: Pair<User, ObservableBoolean>) {
             binding.root.setOnClickListener {
                 val selected = item.second.get()
                 if (selected) {

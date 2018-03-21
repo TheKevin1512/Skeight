@@ -24,7 +24,7 @@ abstract class BaseAdapter<T, V : BaseViewHolder<T>> : RecyclerView.Adapter<V>()
     fun remove(item: T) {
         val index = items.indexOf(item)
         if (index > -1) {
-            this.items.removeAt(index)
+            items.removeAt(index)
             notifyItemRemoved(index)
         }
     }
@@ -45,5 +45,5 @@ abstract class BaseAdapter<T, V : BaseViewHolder<T>> : RecyclerView.Adapter<V>()
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: V, position: Int) = holder.bind(items[position], position)
+    override fun onBindViewHolder(holder: V, position: Int) = holder.bind(items[position])
 }

@@ -25,11 +25,9 @@ class ChatterAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder = ViewHolder(R.layout.item_chatter.bind(layoutInflater, parent))
 
-    inner class ViewHolder(
-            private val binding: ItemChatterBinding
-    ) : BaseViewHolder<Chatter>(binding.root) {
+    inner class ViewHolder(private val binding: ItemChatterBinding) : BaseViewHolder<Chatter>(binding.root) {
 
-        override fun bind(item: Chatter, position: Int) {
+        override fun bind(item: Chatter) {
             item.photoUrl?.let {
                 Picasso.with(binding.root.context)
                         .load(it)

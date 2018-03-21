@@ -66,15 +66,11 @@ class CreateRoomFragment : KodeinSupportFragment() {
             }
         }
 
+        binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
         userManager.addOnUsersListener {
             binding.addContainer!!.addUserLoader.visibility = View.GONE
             adapter.updateAll(it.map { it to ObservableBoolean(false) })
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
     }
 
     private fun validate(): Boolean {

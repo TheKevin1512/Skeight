@@ -14,7 +14,7 @@ class RoomAdapter(
         private val layoutInflater: LayoutInflater,
         private val roomManager: RoomManager,
         private val userId: String,
-        private val clickListener: OnClickListener
+        private val clickListener: (Room) -> Unit
 ) : BaseAdapter<Room, RoomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder = ViewHolder(R.layout.item_room.bind(layoutInflater, parent))
@@ -23,8 +23,11 @@ class RoomAdapter(
 
     inner class ViewHolder(private val binding: ItemRoomBinding) : BaseViewHolder<Room>(binding.root) {
 
-        override fun bind(item: Room, position: Int) {
-            binding.root.setOnClickListener { clickListener.onRoomClicked(item) }
+        override fun bind(item: Room) {
+            binding.root.setOnClickListener {
+                reset()
+                clickListener(item)
+            }
             binding.root.setOnLongClickListener {
                 binding.roomBtnRemove.visibility = if (binding.roomBtnRemove.visibility == View.VISIBLE) View.GONE else View.VISIBLE
                 true
@@ -39,11 +42,9 @@ class RoomAdapter(
         }
 
         fun reset() {
-            binding.roomBtnRemove.visibility = View.GONE
+            if (binding.roomBtnRemove.visibility == View.VISIBLE) {
+                binding.roomBtnRemove.visibility = View.GONE
+            }
         }
-    }
-
-    interface OnClickListener {
-        fun onRoomClicked(room: Room)
     }
 }

@@ -43,20 +43,13 @@ class ChatAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<Message>, position: Int) {
-        when (holder) {
-            is ChatMessageHolder -> holder.bind(items[position], position)
-            is InfoMessageHolder -> holder.bind(items[position], position)
-        }
-    }
-
     inner class ChatMessageHolder(private val binding: ViewDataBinding) : BaseViewHolder<Message>(binding.root) {
 
-        override fun bind(item: Message, position: Int) {
+        override fun bind(item: Message) {
             val context = binding.root.context
 
             binding.setVariable(BR.message, item)
-            binding.setVariable(BR.showName, !(position < items.size - 1 && items[position + 1].userId == item.userId))
+            binding.setVariable(BR.showName, !(adapterPosition < items.size - 1 && items[adapterPosition + 1].userId == item.userId))
             binding.setVariable(BR.hasPicture, false)
 
             item.photoUrl?.let { url ->
@@ -77,7 +70,8 @@ class ChatAdapter(
     }
 
     inner class InfoMessageHolder(private val binding: ItemMessageInfoBinding) : BaseViewHolder<Message>(binding.root) {
-        override fun bind(item: Message, position: Int) {
+
+        override fun bind(item: Message) {
             binding.message = item.content
         }
     }
