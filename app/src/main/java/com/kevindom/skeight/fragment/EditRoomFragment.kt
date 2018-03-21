@@ -29,7 +29,7 @@ class EditRoomFragment : KodeinSupportFragment() {
         private const val EXTRA_ROOM_ID = "extra_room_id"
         private const val EXTRA_USERS = "extra_users"
 
-        fun create(roomId: String, userIds: Set<String>): EditRoomFragment {
+        fun create(roomId: String, userIds: List<String>): EditRoomFragment {
             return EditRoomFragment().apply {
                 arguments = Bundle().apply {
                     putStringArrayList(EXTRA_USERS, ArrayList(userIds))

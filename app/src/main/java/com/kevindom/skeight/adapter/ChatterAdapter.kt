@@ -14,6 +14,8 @@ class ChatterAdapter(
         private val layoutInflater: LayoutInflater
 ) : BaseAdapter<Chatter, ChatterAdapter.ViewHolder>() {
 
+    val userIds get() = items.map { it.userId }
+
     fun remove(userId: String) {
         val toRemove = items.find { it.userId == userId }
         val index = items.indexOf(toRemove)

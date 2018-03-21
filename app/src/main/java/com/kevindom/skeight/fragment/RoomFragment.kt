@@ -127,7 +127,7 @@ class RoomFragment : KodeinSupportFragment() {
         binding.roomBtnAdd.setOnClickListener {
             fragmentManager.inTransaction {
                 setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                add(R.id.fragment_container, EditRoomFragment.create(room.id, room.userIds.keys))
+                add(R.id.fragment_container, EditRoomFragment.create(room.id, chatterAdapter.userIds))
             }
         }
         binding.roomBtnPhoto.setOnClickListener {

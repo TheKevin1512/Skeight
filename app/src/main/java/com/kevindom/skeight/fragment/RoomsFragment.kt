@@ -53,15 +53,7 @@ class RoomsFragment : KodeinSupportFragment(), RoomManager.RoomListener {
 
     override fun onStart() {
         super.onStart()
-        if (!ConnectivityUtil.isConnected(context)) {
-            binding.errorTitle = R.string.error_state_network_title.str(context)
-            binding.errorDescription = R.string.error_state_network_description.str(context)
-            binding.roomsImgError.startAnimation(R.drawable.anim_no_wifi)
-        } else if (adapter.itemCount == 0) {
-            binding.errorTitle = R.string.error_state_rooms_title.str(context)
-            binding.errorDescription = R.string.error_state_rooms_description.str(context)
-            binding.roomsImgError.startAnimation(R.drawable.anim_no_rooms)
-        }
+        checkState()
     }
 
     private fun setupListeners(userId: String) {
@@ -80,6 +72,21 @@ class RoomsFragment : KodeinSupportFragment(), RoomManager.RoomListener {
         }
     }
 
+    private fun checkState() {
+        binding.inErrorState = false
+        if (!ConnectivityUtil.isConnected(context)) {
+            binding.inErrorState = true
+            binding.errorTitle = R.string.error_state_network_title.str(context)
+            binding.errorDescription = R.string.error_state_network_description.str(context)
+            binding.roomsImgError.startAnimation(R.drawable.anim_no_wifi)
+        } else if (adapter.itemCount == 0) {
+            binding.inErrorState = true
+            binding.errorTitle = R.string.error_state_rooms_title.str(context)
+            binding.errorDescription = R.string.error_state_rooms_description.str(context)
+            binding.roomsImgError.startAnimation(R.drawable.anim_no_rooms)
+        }
+    }
+
     override fun onRoomAdded(room: Room) {
         binding.inErrorState = false
         adapter.add(room)
@@ -87,8 +94,7 @@ class RoomsFragment : KodeinSupportFragment(), RoomManager.RoomListener {
 
     override fun onRoomRemoved(room: Room) {
         adapter.remove(room)
-        binding.inErrorState = adapter.itemCount == 0
-        binding.roomsImgError.startAnimation(R.drawable.anim_no_rooms)
+        checkState()
     }
 
     override fun onRoomChanged(room: Room) {

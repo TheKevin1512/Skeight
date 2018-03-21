@@ -26,7 +26,7 @@ class RoomManager(
                 .child(roomId)
                 .child(FIELD_USER_IDS)
                 .addChildEventListener(observeChildren {
-                    onChildAdded { snapshot, s ->
+                    onChildAdded { snapshot, _ ->
                         val userId = snapshot.key
                         addListener(userId)
                     }

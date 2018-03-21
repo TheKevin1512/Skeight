@@ -50,11 +50,9 @@ class ChatAdapter(
 
             binding.setVariable(BR.message, item)
             binding.setVariable(BR.showName, !(adapterPosition < items.size - 1 && items[adapterPosition + 1].userId == item.userId))
-            binding.setVariable(BR.hasPicture, false)
+            binding.setVariable(BR.hasPicture, item.photoUrl != null)
 
             item.photoUrl?.let { url ->
-                binding.setVariable(BR.hasPicture, true)
-
                 val chatPicture = binding.root.findViewById<ImageView>(R.id.chat_picture)
                 chatPicture.setOnClickListener { context.startActivity(FullScreenActivity.create(context, url)) }
 
