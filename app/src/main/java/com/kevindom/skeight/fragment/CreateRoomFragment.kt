@@ -18,7 +18,6 @@ import com.kevindom.skeight.adapter.UserAdapter
 import com.kevindom.skeight.databinding.FragmentCreateRoomBinding
 import com.kevindom.skeight.firebase.RoomManager
 import com.kevindom.skeight.firebase.UserManager
-import com.kevindom.skeight.model.User
 import startAnimation
 import str
 
@@ -79,7 +78,7 @@ class CreateRoomFragment : KodeinSupportFragment() {
             binding.addContainer!!.addUserLoader.visibility = View.GONE
             adapter.updateAll(it.mapNotNull {
                 if (it.id != myUserId)
-                it to ObservableBoolean(false)
+                    it to ObservableBoolean(false)
                 else null
             })
         }

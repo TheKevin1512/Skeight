@@ -64,6 +64,7 @@ class EditRoomFragment : KodeinSupportFragment() {
             (activity as PopupExitListener).onPopupExited()
         }
         binding.addContainer!!.addUserBtnNegative.setOnClickListener { (activity as PopupExitListener).onPopupExited() }
+        binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
         binding.editRoomContainer.setOnClickListener { (activity as PopupExitListener).onPopupExited() }
 
         userManager.addOnUsersListener {
@@ -76,10 +77,5 @@ class EditRoomFragment : KodeinSupportFragment() {
                 else null
             })
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        binding.addContainer!!.addUserLoader.startAnimation(R.drawable.anim_loading, loop = true)
     }
 }
